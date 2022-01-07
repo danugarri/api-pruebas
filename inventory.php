@@ -8,14 +8,24 @@ require 'db.php';
 
         $categoria = $_GET["categoria"];
         $subcategoria = $_GET["subcategoria"];
-        //sql query
-         $query = "SELECT *
-                    FROM test
+        if($subcategoria === '') {
+              $query = "SELECT *
+                    FROM inventario
                     WHERE categoria= '{$categoria}'
-                    AND
-                    subcategoria= '{$subcategoria}' "
+                    ORDER BY id ASC"
                     ;
-                   // WHERE usuario =? "; //  avoid this nombre = '{$userName}'
+        }
+        else{
+            //sql query
+             $query = "SELECT *
+                        FROM inventario
+                        WHERE categoria= '{$categoria}'
+                        AND
+                        subcategoria= '{$subcategoria}'
+                        ORDER BY id ASC"
+                        ;
+                       // WHERE usuario =? "; //  avoid this nombre = '{$userName}'
+        }
      
         $result = mysqli_query($connection, $query);
         $arrayProducts= array();
