@@ -39,8 +39,6 @@ require 'db.php';
             }   
             ///200
             header("HTTP/1.1 200 OK");
-            echo 'ok';
-            
             echo json_encode($arrayProducts);
             //json_encode() trnsforma los datos a formato json
         }   
