@@ -11,7 +11,7 @@ require 'db.php';
         if($subcategoria === '') {
               $query = "SELECT *
                     FROM inventario
-                    WHERE categoria= ?
+                    WHERE categoria= '{$categoria}'
                     ORDER BY id ASC"
                     ;
         }
@@ -19,9 +19,9 @@ require 'db.php';
             //sql query
              $query = "SELECT *
                         FROM inventario
-                        WHERE categoria= ?
+                        WHERE categoria= '{$categoria}'
                         AND
-                        subcategoria= ?
+                        subcategoria= '{$subcategoria}'
                         ORDER BY id ASC"
                         ;
                        // WHERE usuario =? "; //  avoid this nombre = '{$userName}'
@@ -29,16 +29,6 @@ require 'db.php';
      
         $result = mysqli_query($connection, $query);
         $arrayProducts= array();
-
-            //stmt = statement
-        $stmt = $connection->prepare($query); 
-        //accesing to an associative array returned by json_Decode()
-        $stmt->bind_param('ss', $categoria,
-                                 $subcategoria            
-        );
-        //storing the result for that query using a method from the $smtp object
-          $stmt->execute(); 
-        //control request status
         
         if($result){
             //if the query is correct
@@ -49,7 +39,7 @@ require 'db.php';
             }   
             ///200
             header("HTTP/1.1 200 OK");
-            //header("Access-Control-Allow-Origin: *");
+            echo 'ok';
             
             echo json_encode($arrayProducts);
             //json_encode() trnsforma los datos a formato json
@@ -57,7 +47,7 @@ require 'db.php';
         else{
             //500
            header("HTTP/1.1 500 Internal Server Error");
-            
+            echo 'error';
         }
         return  $arrayProducts;
     }
